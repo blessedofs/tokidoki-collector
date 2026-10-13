@@ -21,17 +21,18 @@ jobs:
       - name: Verify importer script
         run: |
           ls -la scripts
-          test -f scripts/import_approved.py || (echo "Missing scripts/import_approved.py" && exit 1)
+          test -f scripts/import_images.py || (echo 'Missing scripts/import_images.py' && exit 1)
 
-      - name: Run approved image importer
-        run: python scripts/import_approved.py
+      - name: Run image importer
+        run: python scripts/import_images.py
 
       - name: Commit imported images
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add assets/ cards.json
           if ! git diff --cached --quiet; then
-            git commit -m "Import approved card artwork"
+            git commit -m 'Import approved card artwork'
             git push
           fi
+
